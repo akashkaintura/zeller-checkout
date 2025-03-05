@@ -35,16 +35,16 @@ npm install
 
 ### Architecture
 
-graph TD
-    A[Client] --> B[POST /checkout/process]
-    B --> C[Checkout Controller]
-    C --> D[Checkout Service]
-    D --> E{Apply Pricing Rules}
-    E --> F[3-for-2 Rule]
-    E --> G[Bulk Discount Rule]
-    E --> H[Other Rules]
-    F --> I[Calculate ATV Discount]
-    G --> J[Calculate IPD Discount]
+graph TD;
+    A[Client] --> B[POST /checkout/process];
+    B --> C[Checkout Controller];
+    C --> D[Checkout Service];
+    D --> E{Apply Pricing Rules};
+    E --> F[3-for-2 Rule];
+    E --> G[Bulk Discount Rule];
+    E --> H[Other Rules];
+    F --> I[Calculate ATV Discount];
+    G --> J[Calculate IPD Discount];
     H --> K[Calculate Custom Discount]
     I --> L[Sum All Discounts]
     J --> L
