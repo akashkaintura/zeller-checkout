@@ -36,15 +36,33 @@ npm install
 ### Architecture
 
 graph TD
-    A[API Request] --> B[Checkout Controller]
-    B --> C{Apply Rules}
-    C --> D[3-for-2 Rule]
-    C --> E[Bulk Discount Rule]
-    C --> F[Future Rules]
-    D --> G[Calculate Discount]
-    E --> G
-    F --> G
-    G --> H[Return Total]
+    A[Client] --> B[POST /checkout/process]
+    B --> C[Checkout Controller]
+    C --> D[Checkout Service]
+    D --> E{Apply Pricing Rules}
+    E --> F[3-for-2 Rule]
+    E --> G[Bulk Discount Rule]
+    E --> H[Other Rules]
+    F --> I[Calculate ATV Discount]
+    G --> J[Calculate IPD Discount]
+    H --> K[Calculate Custom Discount]
+    I --> L[Sum All Discounts]
+    J --> L
+    K --> L
+    L --> M[Calculate Final Total]
+    M --> N[Return Total Response]
+    N --> O[Client]
+
+    style A fill:#4CAF50,color:white
+    style B fill:#2196F3,color:white
+    style C fill:#607D8B,color:white
+    style D fill:#9C27B0,color:white
+    style E fill:#FF9800,color:white
+    style F fill:#F44336,color:white
+    style G fill:#E91E63,color:white
+    style H fill:#673AB7,color:white
+    style L fill:#4CAF50,color:white
+    style M fill:#009688,color:white
 
 
 ### Testing
