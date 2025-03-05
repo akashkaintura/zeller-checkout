@@ -1,0 +1,85 @@
+openapi: 3.1.0
+info:
+  title: Zeller Checkout API
+  version: 1.0.0
+  description: API for managing checkout operations
+servers:
+  - url: http://localhost:3000/api/v1
+# paths:
+#   /checkout/scan:
+#     post:
+#       tags: [Checkout]
+#       summary: Scan a product
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/schemas/ScanRequest'
+#       responses:
+#         200:
+#           description: Item scanned successfully
+#         400:
+#           description: Invalid SKU
+
+#   /checkout/total:
+#     get:
+#       tags: [Checkout]
+#       summary: Get current total
+#       responses:
+#         200:
+#           description: Current total amount
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/schemas/TotalResponse'
+paths:
+  /checkout/process:
+    post:
+      tags: [Checkout]
+      summary: Process list of SKUs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                skus:
+                  type: array
+                  items:
+                    type: string
+                  example: ["atv", "ipd", "ipd", "atv", "ipd", "ipd", "ipd"]
+      responses:
+        200:
+          description: Calculation result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: number
+                    example: 2718.95
+                  items:
+                    type: array
+                    items: 
+                      type: string
+
+components:
+  schemas:
+    ScanRequest:
+      type: object
+      properties:
+        sku:
+          type: string
+          example: "atv"
+      required: [sku]
+
+    TotalResponse:
+      type: object
+      properties:
+        total:
+          type: number
+          format: double
+          example: 249.00

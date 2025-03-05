@@ -1,0 +1,35 @@
+{
+    "name": "zeller-checkout",
+    "version": "1.0.0",
+    "scripts": {
+        "build": "tsc",
+        "dev": "ts-node-dev --respawn --transpile-only --exit-child src/api/server.ts",
+        "start": "node -r dotenv/config dist/api/server.js",
+        "test": "jest",
+        "test:unit": "jest --coverage unit",
+        "test:integration": "jest integration"
+    },
+    "dependencies": {
+        "express": "^4.21.2",
+        "swagger-ui-express": "^5.0.1",
+        "yamljs": "^0.3.0"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.0",
+        "@types/jest": "^29.5.14",
+        "@types/node": "^22.13.9",
+        "@types/swagger-ui-express": "^4.1.8",
+        "@types/yamljs": "^0.2.34",
+        "jest": "^29.5.0",
+        "ts-jest": "^29.1.0",
+        "ts-node-dev": "^2.0.0",
+        "typescript": "^5.0.4"
+    },
+    "jest": {
+        "preset": "ts-jest",
+        "testEnvironment": "node",
+        "roots": [
+            "<rootDir>/tests"
+        ]
+    }
+}
