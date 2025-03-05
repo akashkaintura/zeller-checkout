@@ -35,34 +35,40 @@ npm install
 
 ### Architecture
 
-graph TD;
-    A[Client] --> B[POST /checkout/process];
-    B --> C[Checkout Controller];
-    C --> D[Checkout Service];
-    D --> E{Apply Pricing Rules};
-    E --> F[3-for-2 Rule];
-    E --> G[Bulk Discount Rule];
-    E --> H[Other Rules];
-    F --> I[Calculate ATV Discount];
-    G --> J[Calculate IPD Discount];
-    H --> K[Calculate Custom Discount]
-    I --> L[Sum All Discounts]
-    J --> L
-    K --> L
-    L --> M[Calculate Final Total]
-    M --> N[Return Total Response]
-    N --> O[Client]
+flowchart TB
+    subgraph Client_Layer["Client Layer"]
+        A[Web/Mobile App] -->|POST SKUs List| B[API Gateway]
+    end
 
-    style A fill:#4CAF50,color:white
-    style B fill:#2196F3,color:white
-    style C fill:#607D8B,color:white
-    style D fill:#9C27B0,color:white
-    style E fill:#FF9800,color:white
-    style F fill:#F44336,color:white
-    style G fill:#E91E63,color:white
-    style H fill:#673AB7,color:white
-    style L fill:#4CAF50,color:white
-    style M fill:#009688,color:white
+    subgraph API_Layer["API Layer"]
+        B --> C{{Checkout Controller}}
+        C -->|Process Request| D[Checkout Service]
+    end
+
+    subgraph Business_Layer["Business Rules"]
+        D --> E[Pricing Rule Engine]
+        E --> F[[3-for-2 Rule\natv]]
+        E --> G[[Bulk Discount Rule\nipd]]
+        E --> H[[Custom Rules...]]
+    end
+
+    subgraph Data_Layer["Data Layer"]
+        I[(Product Catalog)] -->|Get Prices| D
+    end
+
+    subgraph Response_Flow["Response Flow"]
+        H --> J{Sum Discounts}
+        J --> K[Calculate Total]
+        K --> L{{Checkout Controller}}
+        L --> M[API Gateway]
+        M --> N[Client Response]
+    end
+
+    style Client_Layer fill:#E3F2FD,stroke:#2196F3
+    style API_Layer fill:#FBE9E7,stroke:#FF5722
+    style Business_Layer fill:#E8F5E9,stroke:#4CAF50
+    style Data_Layer fill:#FFF3E0,stroke:#FF9800
+    style Response_Flow fill:#EDE7F6,stroke:#673AB7
 
 
 ### Testing
