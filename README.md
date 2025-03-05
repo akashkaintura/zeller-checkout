@@ -35,40 +35,20 @@ npm install
 
 ### Architecture
 
-flowchart TB
-    subgraph Client_Layer["Client Layer"]
-        A[Web/Mobile App] -->|POST SKUs List| B[API Gateway]
-    end
-
-    subgraph API_Layer["API Layer"]
-        B --> C{{Checkout Controller}}
-        C -->|Process Request| D[Checkout Service]
-    end
-
-    subgraph Business_Layer["Business Rules"]
-        D --> E[Pricing Rule Engine]
-        E --> F[[3-for-2 Rule\natv]]
-        E --> G[[Bulk Discount Rule\nipd]]
-        E --> H[[Custom Rules...]]
-    end
-
-    subgraph Data_Layer["Data Layer"]
-        I[(Product Catalog)] -->|Get Prices| D
-    end
-
-    subgraph Response_Flow["Response Flow"]
-        H --> J{Sum Discounts}
-        J --> K[Calculate Total]
-        K --> L{{Checkout Controller}}
-        L --> M[API Gateway]
-        M --> N[Client Response]
-    end
-
-    style Client_Layer fill:#E3F2FD,stroke:#2196F3
-    style API_Layer fill:#FBE9E7,stroke:#FF5722
-    style Business_Layer fill:#E8F5E9,stroke:#4CAF50
-    style Data_Layer fill:#FFF3E0,stroke:#FF9800
-    style Response_Flow fill:#EDE7F6,stroke:#673AB7
+```mermaid
+flowchart LR
+    A[Client] -->|POST SKUs| B(API Endpoint)
+    B --> C[Checkout Controller]
+    C --> D[Checkout Service]
+    D --> E[Product Catalog]
+    D --> F[Pricing Rules]
+    F --> G[3-for-2 Rule]
+    F --> H[Bulk Discount Rule]
+    F --> I[...More Rules]
+    D --> J[Calculate Total]
+    J -->|Return| C
+    C -->|Response| A
+```
 
 
 ### Testing
