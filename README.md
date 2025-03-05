@@ -1,8 +1,5 @@
 # Zeller Checkout System
 
-[![Node.js CI](https://github.com/yourusername/zeller-checkout/actions/workflows/node.js.yml/badge.svg)](https://github.com/yourusername/zeller-checkout/actions)
-[![Coverage Status](https://coveralls.io/repos/github/yourusername/zeller-checkout/badge.svg?branch=main)](https://coveralls.io/github/yourusername/zeller-checkout?branch=main)
-
 A flexible checkout system implementing dynamic pricing rules for an electronics store.
 
 ## Features
